@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import { ModeToggle } from "~/components/dark-mode-toggle";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,6 +12,9 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <section className="bg-white w-full min-h-screen flex items-center justify-center dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+      <div className="absolute top-2 right-2 z-20">
+        <ModeToggle />
+      </div>
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
         <Link
           to="#"
