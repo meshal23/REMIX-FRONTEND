@@ -24,7 +24,7 @@ export default function Index() {
             New
           </span>{" "}
           <span className="text-sm font-medium">
-            Jumbotron component was launched! See what&apos;s new
+            codeX compay was launched! See what&apos;s new
           </span>
           <svg
             className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
@@ -49,12 +49,13 @@ export default function Index() {
           Here at Flowbite we focus on markets where technology, innovation, and
           capital can unlock long-term value and drive economic growth.
         </p>
-        <button
+        <Link
+          to="/login"
           type="button"
           className="text-white w-2/5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
           Login
-        </button>
+        </Link>
       </div>
       <div className="bg-gradient-to-b from-blue-50 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
     </section>
