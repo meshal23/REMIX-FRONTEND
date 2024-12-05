@@ -22,6 +22,8 @@ const chartData = [
   { browser: "safari", visitors: 1260, fill: "var(--color-safari)" },
 ];
 
+import { useTheme } from "next-themes";
+
 const chartConfig = {
   visitors: {
     label: "Visitors",
@@ -33,6 +35,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function RadialChartData() {
+  const { theme } = useTheme();
   return (
     <Card className="flex w-2/5 flex-col">
       <CardHeader className="items-center pb-0">
@@ -72,13 +75,19 @@ export function RadialChartData() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-4xl font-bold"
+                          style={{
+                            fill: theme ? "#f1f5f9" : "inherit",
+                          }}
+                          className="fill-foreground text-4xl font-bold "
                         >
                           {chartData[0].visitors.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
+                          style={{
+                            fill: theme ? "#f1f5f9" : "inherit",
+                          }}
                           className="fill-muted-foreground"
                         >
                           Visitors
