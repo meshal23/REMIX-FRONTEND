@@ -18,6 +18,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../../components/ui/chart";
+
+import { useTheme } from "next-themes";
+
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
@@ -53,6 +56,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function PieChartData() {
+  const { theme } = useTheme();
   const totalVisitors = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
   }, []);
@@ -93,6 +97,9 @@ export function PieChartData() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
+                          style={{
+                            fill: theme ? "#f1f5f9" : "inherit",
+                          }}
                           className="fill-foreground text-3xl font-bold"
                         >
                           {totalVisitors.toLocaleString()}
@@ -100,6 +107,9 @@ export function PieChartData() {
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
+                          style={{
+                            fill: theme ? "#f1f5f9" : "inherit",
+                          }}
                           className="fill-muted-foreground"
                         >
                           Visitors
