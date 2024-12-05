@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       width: {
-        page: "calc(99vw - 16rem)",
+        page: "calc(99vw - 17rem)",
       },
       fontFamily: {},
       borderRadius: {
