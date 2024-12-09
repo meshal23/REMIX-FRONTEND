@@ -45,4 +45,46 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  @layer utilities {
+    .font-roboto-thin {
+      font-family: "Roboto", sans-serif;
+      font-weight: 100;
+    }
+
+    .font-roboto-normal {
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+    }
+
+    .font-roboto-bold {
+      font-family: "Roboto", sans-serif;
+      font-weight: 700;
+    }
+
+    .font-roboto-extrabold {
+      font-family: "Roboto", sans-serif;
+      font-weight: 800;
+    }
+
+    .font-lato-light {
+      font-family: "Lato", sans-serif;
+      font-weight: 300;
+    }
+
+    .font-lato-normal {
+      font-family: "Lato", sans-serif;
+      font-weight: 400;
+    }
+
+    .font-lato-bold {
+      font-family: "Lato", sans-serif;
+      font-weight: 700;
+    }
+
+    .font-lato-extrabold {
+      font-family: "Lato", sans-serif;
+      font-weight: 800;
+    }
+  }
 }
