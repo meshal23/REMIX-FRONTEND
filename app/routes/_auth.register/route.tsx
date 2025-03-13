@@ -1,137 +1,133 @@
-import { Form } from "@remix-run/react";
+import { ActionFunctionArgs } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
+import {
+  isValidationErrorResponse,
+  useForm,
+  validationError,
+} from "@rvf/remix";
+
+import { withYup } from "@rvf/yup";
+import { useEffect } from "react";
+import * as yup from "yup";
+import TextInput from "~/components/Form/TextInput";
+
+export async function clientAction({ request }: ActionFunctionArgs) {
+  const data = await validator.validate(request.formData());
+  if (data.error) return validationError(data.error);
+  return null;
+}
+
+const validator = withYup(
+  yup.object({
+    email: yup.string().email().required("Email is required"),
+    password: yup
+      .string()
+      .max(8, "password must be 8 characters in length")
+      .required(),
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required("Last Name is required"),
+    phoneNo: yup.string().required(),
+    // address: yup.string().required(),
+  })
+);
 
 const Register = () => {
+  const data = useActionData<typeof clientAction>();
+
+  useEffect(
+    () =>
+      form.subscribe.value((formData) => {
+        console.log(formData);
+      }),
+    []
+  );
+
+  const form = useForm({
+    validator,
+    defaultValues: {},
+    onSubmitSuccess: () => {
+      // We know this isn't an error in the success callback, but Typescript doesn't
+      if (isValidationErrorResponse(data)) return;
+
+      // This isn't always the best way to show a toast in remix.
+      // https://www.jacobparis.com/content/remix-form-toast
+
+      form.resetForm();
+    },
+  });
   return (
     <section className="w-full min-h-screen flex flex-col justify-center items-center">
-      <div className="text-center w-full p-4 mb-5 font-roboto-bold text-3xl">
-        REGISTER HERE
-      </div>
-      <Form className="max-w-md mx-auto">
-        <div className="relative z-0 w-full mb-5 group">
-          <input
-            type="email"
-            name="floating_email"
-            id="floating_email"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-800 dark:focus:border-blue-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label
-            htmlFor="floating_email"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Email address
-          </label>
+      <div className="w-3/4 p-7 bg-formBg py-10 dark:bg-gray-700 rounded-lg">
+        <div className="text-center rounded text-black bg-gray-400 w-full p-4 mb-5 font-bold text-3xl">
+          REGISTER HERE
         </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <input
-            type="password"
-            name="floating_password"
-            id="floating_password"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-800 dark:focus:border-blue-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label
-            htmlFor="floating_password"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Password
-          </label>
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <input
-            type="password"
-            name="repeat_password"
-            id="floating_repeat_password"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-800 dark:focus:border-blue-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label
-            htmlFor="floating_repeat_password"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Confirm password
-          </label>
-        </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <input
+        <Form className="w-full" method="post" {...form.getFormProps()}>
+          <div className="mb-5 flex gap-3">
+            <TextInput
               type="text"
-              name="floating_first_name"
-              id="floating_first_name"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-800 dark:focus:border-blue-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
+              id="firstName"
+              name="firstName"
+              label="First Name"
+              form={form}
             />
-            <label
-              htmlFor="floating_first_name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              First name
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
+            <TextInput
               type="text"
-              name="floating_last_name"
-              id="floating_last_name"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-800 dark:focus:border-blue-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
+              id="lastName"
+              name="lastName"
+              label="Last Name"
+              form={form}
             />
-            <label
-              htmlFor="floating_last_name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Last name
-            </label>
           </div>
-        </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <input
+          <div className="mb-5">
+            <TextInput
+              type="email"
+              id="email"
+              name="email"
+              label="Your Email"
+              form={form}
+            />
+          </div>
+          <div className="mb-5">
+            <TextInput
               type="tel"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              name="floating_phone"
-              id="floating_phone"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-800 dark:focus:border-blue-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
+              id="phone"
+              name="phone"
+              label="Phone No"
+              form={form}
             />
-            <label
-              htmlFor="floating_phone"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Phone number
-            </label>
           </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="floating_company"
-              id="floating_company"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-800 dark:focus:border-blue-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
+          <div className="mb-5">
+            <TextInput
+              form={form}
+              id="password"
+              label="Password"
+              name="password"
+              type="password"
             />
-            <label
-              htmlFor="floating_company"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Company (Ex. Google)
-            </label>
           </div>
-        </div>
-        <button
-          type="submit"
-          style={{ width: "100%" }}
-          className="text-white mt-5 bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
+
+          <button
+            type="submit"
+            style={{ width: "100%" }}
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Register
+          </button>
+        </Form>
+        {/* <p
+          id="helper-text-explanation"
+          className="mt-2 text-sm text-gray-500 dark:text-gray-300"
         >
-          Register
-        </button>
-      </Form>
+          Create a new account
+          <Link
+            to="/register"
+            className="font-medium text-blue-600 hover:underline ml-2 dark:text-blue-200"
+          >
+            Register Here
+          </Link>
+          .
+        </p> */}
+      </div>
     </section>
   );
 };

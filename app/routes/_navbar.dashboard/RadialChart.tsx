@@ -76,7 +76,7 @@ export function RadialChartData() {
                           x={viewBox.cx}
                           y={viewBox.cy}
                           style={{
-                            fill: theme ? "#f1f5f9" : "inherit",
+                            fill: theme === "dark" ? "#f1f5f9" : "inherit",
                           }}
                           className="fill-foreground text-4xl font-bold "
                         >
@@ -86,7 +86,7 @@ export function RadialChartData() {
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           style={{
-                            fill: theme ? "#f1f5f9" : "inherit",
+                            fill: theme === "dark" ? "#f1f5f9" : "inherit",
                           }}
                           className="fill-muted-foreground"
                         >

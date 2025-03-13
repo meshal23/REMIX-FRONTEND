@@ -9,7 +9,9 @@ export default {
       width: {
         page: "calc(99vw - 17rem)",
       },
-      fontFamily: {},
+      fontFamily: {
+        Sen: ['Sen'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

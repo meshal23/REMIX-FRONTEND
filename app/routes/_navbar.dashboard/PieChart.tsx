@@ -98,7 +98,7 @@ export function PieChartData() {
                           x={viewBox.cx}
                           y={viewBox.cy}
                           style={{
-                            fill: theme ? "#f1f5f9" : "inherit",
+                            fill: theme === "dark" ? "#f1f5f9" : "inherit",
                           }}
                           className="fill-foreground text-3xl font-bold"
                         >
@@ -108,7 +108,7 @@ export function PieChartData() {
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           style={{
-                            fill: theme ? "#f1f5f9" : "inherit",
+                            fill: theme === "dark" ? "#f1f5f9" : "inherit",
                           }}
                           className="fill-muted-foreground"
                         >
