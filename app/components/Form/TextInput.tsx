@@ -43,7 +43,7 @@ const TextInput: FC<TextInputProps> = ({
       />
       {form.error(name) && (
         <div
-          className="font-roboto-bold dark:text-red-400 text-red-800"
+          className="font-bold dark:text-red-400 text-red-800"
           id="name-error"
         >
           {form.error(name) as string}
