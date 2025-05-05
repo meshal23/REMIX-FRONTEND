@@ -1,11 +1,12 @@
 import {
   Calendar,
   ChevronUp,
-  Home,
-  Inbox,
-  // Search,
-  // Settings,
+  ListTodo,
+  UserCog,
+  Soup,
   User2,
+  UtensilsCrossed,
+  Ratio,
 } from "lucide-react";
 
 import {
@@ -32,28 +33,28 @@ const items = [
   {
     title: "Invoice",
     url: "/invoice",
-    icon: Home,
+    icon: ListTodo,
+  },
+  {
+    title: "Employees",
+    url: "/employees",
+    icon: UserCog,
+  },
+  {
+    title: "Items",
+    url: "/items",
+    icon: Soup,
   },
   {
     title: "KOT",
     url: "/kot",
-    icon: Inbox,
+    icon: UtensilsCrossed,
   },
   {
     title: "Table",
     url: "/table",
-    icon: Calendar,
+    icon: Ratio,
   },
-  // {
-  //   title: "Search",
-  //   url: "#",
-  //   icon: Search,
-  // },
-  // {
-  //   title: "Settings",
-  //   url: "#",
-  //   icon: Settings,
-  // },
 ];
 
 export function AppSidebar() {

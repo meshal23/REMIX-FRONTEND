@@ -4,7 +4,7 @@ import SidebarLayout from "./layout";
 // here goes the navbar
 const route = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full">
       <SidebarLayout>
         <Outlet />
       </SidebarLayout>

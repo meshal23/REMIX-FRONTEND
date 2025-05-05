@@ -147,7 +147,7 @@ export function BarChartData() {
     // toggleSidebar,
   } = useSidebar();
 
-  console.log(state, open);
+  // console.log(state, open);
 
   return (
     <Card

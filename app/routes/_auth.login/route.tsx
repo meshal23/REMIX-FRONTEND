@@ -66,7 +66,7 @@ const Login = () => {
   return (
     <section className="w-full min-h-screen flex flex-col justify-center items-center">
       <div className="w-3/4 p-7 bg-formBg py-10 dark:bg-gray-700 rounded-lg">
-        <div className="text-center rounded text-black bg-gray-400 w-full p-4 mb-5 font-roboto-bold text-3xl">
+        <div className="text-center rounded text-black bg-gray-400 w-full p-4 mb-5 font-bold text-3xl">
           LOGIN HERE
         </div>
         <Form className="w-full" method="post" {...form.getFormProps()}>
